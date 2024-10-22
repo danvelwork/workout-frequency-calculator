@@ -5,13 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar with A, B, C, D</title>
     <style>
+        /* Styling for the header */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* Logo style */
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Navigation menu */
+        nav {
+            margin-top: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Calendar styles */
         .calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 10px;
             max-width: 400px;
-            margin: 0 auto;
+            margin: 20px auto;
         }
+
         .day, .header {
             width: 50px;
             height: 50px;
@@ -21,17 +64,44 @@
             border: 1px solid #ccc;
             cursor: pointer;
         }
+
         .header {
             font-weight: bold;
             cursor: default;
         }
+
         .controls {
             text-align: center;
             margin-top: 20px;
         }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Header with logo and navigation -->
+    <header>
+        <a href="index.html" class="logo">Danvelwork</a>
+        <nav>
+            <ul>
+                <li><a href="tool1.html">Tool 1</a></li>
+                <li><a href="tool2.html">Tool 2</a></li>
+                <li><a href="tool3.html">Tool 3</a></li>
+                <!-- Add more tool links as needed -->
+            </ul>
+        </nav>
+    </header>
 
     <h1 style="text-align:center;">Calendar with A, B, C, D</h1>
 
