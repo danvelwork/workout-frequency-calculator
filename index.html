@@ -1,254 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar with A, B, C, D</title>
     <style>
-        /* Styling for the header */
-        header {
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
+      /* Styling for the header */
+      header {
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
 
-        /* Logo style */
-        .logo {
-            font-size: 2em;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #fff;
-            text-decoration: none;
-        }
+      /* Logo style */
+      .logo {
+        font-size: 2em;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+      }
 
-        /* Navigation menu */
-        nav {
-            margin-top: 10px;
-        }
+      /* Navigation menu */
+      nav {
+        margin-top: 10px;
+      }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
 
-        nav ul li {
-            display: inline;
-            margin-right: 15px;
-        }
+      nav ul li {
+        display: inline;
+        margin-right: 15px;
+      }
 
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+      }
 
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
 
-        /* Calendar styles */
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            max-width: 400px;
-            margin: 20px auto;
-        }
+      /* Calendar styles */
+      .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        max-width: 400px;
+        margin: 20px auto;
+      }
 
-        .day, .header {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
+      .day,
+      .header {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
 
-        .header {
-            font-weight: bold;
-            cursor: pointer; /* Allows click for column reset */
-        }
+      .header {
+        font-weight: bold;
+        cursor: pointer;
+        /* Allows click for column reset */
+      }
 
-        /* Colors for A, B, C, D */
-        .day.a {
-            background-color: #ffcccc;
-        }
+      /* Colors for A, B, C, D */
+      .day.a {
+        background-color: #ffcccc;
+      }
 
-        .day.b {
-            background-color: #ccffcc;
-        }
+      .day.b {
+        background-color: #ccffcc;
+      }
 
-        .day.c {
-            background-color: #ccccff;
-        }
+      .day.c {
+        background-color: #ccccff;
+      }
 
-        .day.d {
-            background-color: #ffffcc;
-        }
+      .day.d {
+        background-color: #ffffcc;
+      }
 
-        .controls {
-            text-align: center;
-            margin-top: 20px;
-        }
+      .controls {
+        text-align: center;
+        margin-top: 20px;
+      }
 
-        button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+      button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
 
-        button:hover {
-            background-color: #555;
+      button:hover {
+        background-color: #555;
+      }
+      #result {
+          min-height: 50px;
+          /* Ensure the result area has space even before content is added */
+          margin-top: 10px;
         }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <!-- Header with logo and navigation -->
     <header>
-        <a href="/" class="logo">Danvelwork</a>
-        <nav>
-            <ul>
-                <li><a href="/workout-frequency-calculator">Frequency Calc</a></li>
-                <li><a href="/tool2.html">Tool 2</a></li>
-                <li><a href="/tool3.html">Tool 3</a></li>
-            </ul>
-        </nav>
+      <a href="/" class="logo">Danvelwork</a>
+      <nav>
+        <ul>
+          <li>
+            <a href="/workout-frequency-calculator">Frequency Calc</a>
+          </li>
+          <li>
+            <a href="/tool2.html">Tool 2</a>
+          </li>
+          <li>
+            <a href="/tool3.html">Tool 3</a>
+          </li>
+        </ul>
+      </nav>
     </header>
-
     <h1 style="text-align:center;">Calendar with A, B, C, D</h1>
-
     <div class="calendar" id="calendar">
-        <!-- Headers for the days of the week -->
-        <div class="header" data-day="1">Mon</div>
-        <div class="header" data-day="2">Tue</div>
-        <div class="header" data-day="3">Wed</div>
-        <div class="header" data-day="4">Thu</div>
-        <div class="header" data-day="5">Fri</div>
-        <div class="header" data-day="6">Sat</div>
-        <div class="header" data-day="7">Sun</div>
-
-        <!-- Calendar days will be populated here -->
+      <!-- Headers for the days of the week -->
+      <div class="header" data-day="1">Mon</div>
+      <div class="header" data-day="2">Tue</div>
+      <div class="header" data-day="3">Wed</div>
+      <div class="header" data-day="4">Thu</div>
+      <div class="header" data-day="5">Fri</div>
+      <div class="header" data-day="6">Sat</div>
+      <div class="header" data-day="7">Sun</div>
+      <!-- Calendar days will be populated here -->
     </div>
-
     <div class="controls">
-        <button onclick="calculateAverage()">Calculate Average Rest</button>
-        <p id="result"></p>
+      <button onclick="calculateAverage()">Calculate Average Rest</button>
+      <p id="result"></p>
+      <button onclick="resetCalendar()">Reset Calendar</button>
+      <p id="result"></p>
     </div>
-
     <script>
-        // Initialize the calendar
-        const daysInMonth = 30;
-        const calendar = document.getElementById('calendar');
-
-        // Populate the calendar with 30 days
-        for (let i = 1; i <= daysInMonth; i++) {
-            const dayDiv = document.createElement('div');
-            dayDiv.classList.add('day');
-            dayDiv.dataset.day = i;
-            dayDiv.innerHTML = i;
-
-            // Add click event to toggle between A, B, C, D, and empty
-            dayDiv.addEventListener('click', () => {
-                if (dayDiv.classList.contains('a')) {
-                    dayDiv.classList.remove('a');
-                    dayDiv.classList.add('b');
-                    dayDiv.textContent = 'B';
-                } else if (dayDiv.classList.contains('b')) {
-                    dayDiv.classList.remove('b');
-                    dayDiv.classList.add('c');
-                    dayDiv.textContent = 'C';
-                } else if (dayDiv.classList.contains('c')) {
-                    dayDiv.classList.remove('c');
-                    dayDiv.classList.add('d');
-                    dayDiv.textContent = 'D';
-                } else if (dayDiv.classList.contains('d')) {
-                    dayDiv.classList.remove('d');
-                    dayDiv.textContent = '';
-                } else {
-                    dayDiv.classList.add('a');
-                    dayDiv.textContent = 'A';
-                }
-            });
-
-            calendar.appendChild(dayDiv);
-        }
-
-        // Function to calculate the average rest for A, B, C, and D
-        function calculateAverage() {
-            const days = document.querySelectorAll('.day');
-            let lastADay = null, lastBDay = null, lastCDay = null, lastDDay = null;
-            let restDaysA = [], restDaysB = [], restDaysC = [], restDaysD = [];
-
-            days.forEach((day, index) => {
-                const type = day.textContent;
-
-                // Track rest periods for "A"
-                if (type === 'A') {
-                    if (lastADay !== null) {
-                        restDaysA.push(index + 1 - lastADay);
-                    }
-                    lastADay = index + 1;
-                }
-
-                // Track rest periods for "B"
-                if (type === 'B') {
-                    if (lastBDay !== null) {
-                        restDaysB.push(index + 1 - lastBDay);
-                    }
-                    lastBDay = index + 1;
-                }
-
-                // Track rest periods for "C"
-                if (type === 'C') {
-                    if (lastCDay !== null) {
-                        restDaysC.push(index + 1 - lastCDay);
-                    }
-                    lastCDay = index + 1;
-                }
-
-                // Track rest periods for "D"
-                if (type === 'D') {
-                    if (lastDDay !== null) {
-                        restDaysD.push(index + 1 - lastDDay);
-                    }
-                    lastDDay = index + 1;
-                }
-            });
-
-            // Calculate average rest for A, B, C, and D
-            const averageRestA = restDaysA.length > 0 ? (restDaysA.reduce((a, b) => a + b, 0) / restDaysA.length) : 0;
-            const averageRestB = restDaysB.length > 0 ? (restDaysB.reduce((a, b) => a + b, 0) / restDaysB.length) : 0;
-            const averageRestC = restDaysC.length > 0 ? (restDaysC.reduce((a, b) => a + b, 0) / restDaysC.length) : 0;
-            const averageRestD = restDaysD.length > 0 ? (restDaysD.reduce((a, b) => a + b, 0) / restDaysD.length) : 0;
-
-            document.getElementById('result').textContent = `
+      // Initialize the calendar
+      const daysInMonth = 30;
+      const calendar = document.getElementById('calendar');
+      // Populate the calendar with 30 days
+      for (let i = 1; i <= daysInMonth; i++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('day');
+        dayDiv.dataset.day = i;
+        dayDiv.innerHTML = i;
+        // Add click event to toggle between A, B, C, D, and empty
+        dayDiv.addEventListener('click', () => {
+          if (dayDiv.classList.contains('a')) {
+            dayDiv.classList.remove('a');
+            dayDiv.classList.add('b');
+            dayDiv.textContent = 'B';
+          } else if (dayDiv.classList.contains('b')) {
+            dayDiv.classList.remove('b');
+            dayDiv.classList.add('c');
+            dayDiv.textContent = 'C';
+          } else if (dayDiv.classList.contains('c')) {
+            dayDiv.classList.remove('c');
+            dayDiv.classList.add('d');
+            dayDiv.textContent = 'D';
+          } else if (dayDiv.classList.contains('d')) {
+            dayDiv.classList.remove('d');
+            dayDiv.textContent = '';
+          } else {
+            dayDiv.classList.add('a');
+            dayDiv.textContent = 'A';
+          }
+        });
+        calendar.appendChild(dayDiv);
+      }
+      // Function to calculate the average rest for A, B, C, and D
+      function calculateAverage() {
+        const days = document.querySelectorAll('.day');
+        let lastADay = null,
+          lastBDay = null,
+          lastCDay = null,
+          lastDDay = null;
+        let restDaysA = [],
+          restDaysB = [],
+          restDaysC = [],
+          restDaysD = [];
+        days.forEach((day, index) => {
+          const type = day.textContent;
+          // Track rest periods for "A"
+          if (type === 'A') {
+            if (lastADay !== null) {
+              restDaysA.push(index + 1 - lastADay);
+            }
+            lastADay = index + 1;
+          }
+          // Track rest periods for "B"
+          if (type === 'B') {
+            if (lastBDay !== null) {
+              restDaysB.push(index + 1 - lastBDay);
+            }
+            lastBDay = index + 1;
+          }
+          // Track rest periods for "C"
+          if (type === 'C') {
+            if (lastCDay !== null) {
+              restDaysC.push(index + 1 - lastCDay);
+            }
+            lastCDay = index + 1;
+          }
+          // Track rest periods for "D"
+          if (type === 'D') {
+            if (lastDDay !== null) {
+              restDaysD.push(index + 1 - lastDDay);
+            }
+            lastDDay = index + 1;
+          }
+        });
+        // Calculate average rest for A, B, C, and D
+        const averageRestA = restDaysA.length > 0 ? (restDaysA.reduce((a, b) => a + b, 0) / restDaysA.length) : 0;
+        const averageRestB = restDaysB.length > 0 ? (restDaysB.reduce((a, b) => a + b, 0) / restDaysB.length) : 0;
+        const averageRestC = restDaysC.length > 0 ? (restDaysC.reduce((a, b) => a + b, 0) / restDaysC.length) : 0;
+        const averageRestD = restDaysD.length > 0 ? (restDaysD.reduce((a, b) => a + b, 0) / restDaysD.length) : 0;
+        document.getElementById('result').textContent = `
                 Average rest for A: ${averageRestA.toFixed(2)} days, 
                 B: ${averageRestB.toFixed(2)} days, 
                 C: ${averageRestC.toFixed(2)} days, 
                 D: ${averageRestD.toFixed(2)} days
             `;
-        }
+      }
+      // Function to reset the calendar and clear results
+function resetCalendar() {
+    const days = document.querySelectorAll('.day');
+    
+    // Reset each day to its original state (remove A, B, C, D)
+    days.forEach(day => {
+        day.classList.remove('a', 'b', 'c', 'd'); // Remove all letter classes
+        day.textContent = day.dataset.day; // Restore the original day number
+    });
 
-        // Add event listener to headers to clear the column (make all rest days)
-        const headers = document.querySelectorAll('.header');
-        headers.forEach((header, index) => {
-            header.addEventListener('click', () => {
-                const dayOfWeek = index + 1;
-                const days = document.querySelectorAll('.day');
-
-                days.forEach(day => {
-                    if ((day.dataset.day - 1) % 7 === index) {
-                        day.classList.remove('a', 'b', 'c', 'd');
-                        day.textContent = ''; // Clear the text
-                    }
-                });
-            });
+    // Clear the calculation result
+    document.getElementById('result').textContent = '';
+}
+      // Add event listener to headers to clear the column (make all rest days)
+      const headers = document.querySelectorAll('.header');
+      headers.forEach((header, index) => {
+        header.addEventListener('click', () => {
+          const dayOfWeek = index + 1;
+          const days = document.querySelectorAll('.day');
+          days.forEach(day => {
+            if ((day.dataset.day - 1) % 7 === index) {
+              day.classList.remove('a', 'b', 'c', 'd');
+              day.textContent = ''; // Clear the text
+            }
+          });
         });
+      });
     </script>
-
-</body>
+  </body>
 </html>
