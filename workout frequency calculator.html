@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar with A, B, C, D</title>
+    <style>
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .day, .header {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .header {
+            font-weight: bold;
+            cursor: default;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center;">Calendar with A, B, C, D</h1>
+
+    <div class="calendar" id="calendar">
+        <!-- Headers for the days of the week -->
+        <div class="header">Mon</div>
+        <div class="header">Tue</div>
+        <div class="header">Wed</div>
+        <div class="header">Thu</div>
+        <div class="header">Fri</div>
+        <div class="header">Sat</div>
+        <div class="header">Sun</div>
+
+        <!-- Calendar days will be populated here -->
+    </div>
+
+    <div class="controls">
+        <button onclick="calculateAverage()">Calculate Average Rest</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Initialize the calendar
+        const daysInMonth = 30;
+        const calendar = document.getElementById('calendar');
+
+        // Populate the calendar with 30 days
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.classList.add('day');
+            dayDiv.dataset.day = i;
+            dayDiv.innerHTML = i;
+
+            // Add click event to toggle between A, B, C, D, and empty
+            dayDiv.addEventListener('click', () => {
+                if (dayDiv.textContent === 'A') {
+                    dayDiv.textContent = 'B';
+                } else if (dayDiv.textContent === 'B') {
+                    dayDiv.textContent = 'C';
+                } else if (dayDiv.textContent === 'C') {
+                    dayDiv.textContent = 'D';
+                } else if (dayDiv.textContent === 'D') {
+                    dayDiv.textContent = '';
+                } else {
+                    dayDiv.textContent = 'A';
+                }
+            });
+
+            calendar.appendChild(dayDiv);
+        }
+
+        // Function to calculate the average rest for A, B, C, and D
+        function calculateAverage() {
+            const days = document.querySelectorAll('.day');
+            let lastADay = null, lastBDay = null, lastCDay = null, lastDDay = null;
+            let restDaysA = [], restDaysB = [], restDaysC = [], restDaysD = [];
+
+            days.forEach((day, index) => {
+                const type = day.textContent;
+
+                // Track rest periods for "A"
+                if (type === 'A') {
+                    if (lastADay !== null) {
+                        restDaysA.push(index + 1 - lastADay);
+                    }
+                    lastADay = index + 1;
+                }
+
+                // Track rest periods for "B"
+                if (type === 'B') {
+                    if (lastBDay !== null) {
+                        restDaysB.push(index + 1 - lastBDay);
+                    }
+                    lastBDay = index + 1;
+                }
+
+                // Track rest periods for "C"
+                if (type === 'C') {
+                    if (lastCDay !== null) {
+                        restDaysC.push(index + 1 - lastCDay);
+                    }
+                    lastCDay = index + 1;
+                }
+
+                // Track rest periods for "D"
+                if (type === 'D') {
+                    if (lastDDay !== null) {
+                        restDaysD.push(index + 1 - lastDDay);
+                    }
+                    lastDDay = index + 1;
+                }
+            });
+
+            // Calculate average rest for A, B, C, and D
+            const averageRestA = restDaysA.length > 0 ? (restDaysA.reduce((a, b) => a + b, 0) / restDaysA.length) : 0;
+            const averageRestB = restDaysB.length > 0 ? (restDaysB.reduce((a, b) => a + b, 0) / restDaysB.length) : 0;
+            const averageRestC = restDaysC.length > 0 ? (restDaysC.reduce((a, b) => a + b, 0) / restDaysC.length) : 0;
+            const averageRestD = restDaysD.length > 0 ? (restDaysD.reduce((a, b) => a + b, 0) / restDaysD.length) : 0;
+
+            document.getElementById('result').textContent = `
+                Average rest for A: ${averageRestA.toFixed(2)} days, 
+                B: ${averageRestB.toFixed(2)} days, 
+                C: ${averageRestC.toFixed(2)} days, 
+                D: ${averageRestD.toFixed(2)} days
+            `;
+        }
+    </script>
+
+</body>
+</html>
