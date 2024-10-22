@@ -67,7 +67,24 @@
 
         .header {
             font-weight: bold;
-            cursor: default;
+            cursor: pointer; /* Allows click for column reset */
+        }
+
+        /* Colors for A, B, C, D */
+        .day.a {
+            background-color: #ffcccc;
+        }
+
+        .day.b {
+            background-color: #ccffcc;
+        }
+
+        .day.c {
+            background-color: #ccccff;
+        }
+
+        .day.d {
+            background-color: #ffffcc;
         }
 
         .controls {
@@ -96,9 +113,8 @@
         <nav>
             <ul>
                 <li><a href="/workout-frequency-calculator">Frequency Calc</a></li>
-                <li><a href="tool2.html">Tool 2</a></li>
-                <li><a href="tool3.html">Tool 3</a></li>
-                <!-- Add more tool links as needed -->
+                <li><a href="/tool2.html">Tool 2</a></li>
+                <li><a href="/tool3.html">Tool 3</a></li>
             </ul>
         </nav>
     </header>
@@ -107,13 +123,13 @@
 
     <div class="calendar" id="calendar">
         <!-- Headers for the days of the week -->
-        <div class="header">Mon</div>
-        <div class="header">Tue</div>
-        <div class="header">Wed</div>
-        <div class="header">Thu</div>
-        <div class="header">Fri</div>
-        <div class="header">Sat</div>
-        <div class="header">Sun</div>
+        <div class="header" data-day="1">Mon</div>
+        <div class="header" data-day="2">Tue</div>
+        <div class="header" data-day="3">Wed</div>
+        <div class="header" data-day="4">Thu</div>
+        <div class="header" data-day="5">Fri</div>
+        <div class="header" data-day="6">Sat</div>
+        <div class="header" data-day="7">Sun</div>
 
         <!-- Calendar days will be populated here -->
     </div>
@@ -137,15 +153,23 @@
 
             // Add click event to toggle between A, B, C, D, and empty
             dayDiv.addEventListener('click', () => {
-                if (dayDiv.textContent === 'A') {
+                if (dayDiv.classList.contains('a')) {
+                    dayDiv.classList.remove('a');
+                    dayDiv.classList.add('b');
                     dayDiv.textContent = 'B';
-                } else if (dayDiv.textContent === 'B') {
+                } else if (dayDiv.classList.contains('b')) {
+                    dayDiv.classList.remove('b');
+                    dayDiv.classList.add('c');
                     dayDiv.textContent = 'C';
-                } else if (dayDiv.textContent === 'C') {
+                } else if (dayDiv.classList.contains('c')) {
+                    dayDiv.classList.remove('c');
+                    dayDiv.classList.add('d');
                     dayDiv.textContent = 'D';
-                } else if (dayDiv.textContent === 'D') {
+                } else if (dayDiv.classList.contains('d')) {
+                    dayDiv.classList.remove('d');
                     dayDiv.textContent = '';
                 } else {
+                    dayDiv.classList.add('a');
                     dayDiv.textContent = 'A';
                 }
             });
@@ -208,6 +232,22 @@
                 D: ${averageRestD.toFixed(2)} days
             `;
         }
+
+        // Add event listener to headers to clear the column (make all rest days)
+        const headers = document.querySelectorAll('.header');
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                const dayOfWeek = index + 1;
+                const days = document.querySelectorAll('.day');
+
+                days.forEach(day => {
+                    if ((day.dataset.day - 1) % 7 === index) {
+                        day.classList.remove('a', 'b', 'c', 'd');
+                        day.textContent = ''; // Clear the text
+                    }
+                });
+            });
+        });
     </script>
 
 </body>
